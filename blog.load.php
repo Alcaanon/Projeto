@@ -7,13 +7,12 @@
 
     if(isset($_GET['load-categoria'])) {
         $_SESSION['categorias'] = serialize($categoriaService->listar());
-
-        header('location: servico');
+        header('Location: home');
         exit;
     }
 
     if(isset($_GET['load-blog'])) {
         $_SESSION['blogs'] = $BlogService->listar(10);
-        header('location: home');
+        header('Location: index');
         exit;
     }

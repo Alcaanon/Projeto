@@ -16,7 +16,7 @@
             return $this->repository->fnListCategorias($limit);
         }
         
-        public function LocalizarPorIds($ids) {
+        public function LocalizarPorId($ids) {
             return $this->repository->fnListCategoriasIn($ids);
         }
 

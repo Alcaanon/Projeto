@@ -17,7 +17,7 @@
                 <li><a class="dropdown-item" >Listar</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" a href="blogs" >Blogs</a></li>
-                <li><a class="dropdown-item" a href="#" >Categorias</a></li>
+                <li><a class="dropdown-item" a href="categorias" >Categorias</a></li>
                 <li><a class="dropdown-item" a href="servicos" >Serviços</a></li>
                 <li><a class="dropdown-item" a href="usuarios" >Usuários</a></li>
                 <li><hr class="dropdown-divider"></li>
