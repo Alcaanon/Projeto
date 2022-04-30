@@ -44,17 +44,17 @@ class ServicosRepository
             $query .= "where id = :pid";
 
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":pclasse", $blog->getClasse());
-            $stmt->bindValue(":ptitulo", $blog->getTitulo());
-            $stmt->bindValue(":pdescricao", $blog->getDescricao());
-            $stmt->bindValue(":pcategoriaId", $blog->getCategoriaId());
+            $stmt->bindValue(":pclasse", $servico->getClasse());
+            $stmt->bindValue(":ptitulo", $servico->getTitulo());
+            $stmt->bindValue(":pdescricao", $servico->getDescricao());
+            $stmt->bindValue(":pcategoriaId", $servico->getCategoriaId());
 
             if ($stmt->execute())
                 return true;
 
             return false;
         } catch (PDOException $error) {
-            echo "Erro ao inserir o blog no banco. Erro: {$error->getMessage()}";
+            echo "Erro ao inserir o servico no banco. Erro: {$error->getMessage()}";
             return false;
         } finally {
             unset($this->conn);
