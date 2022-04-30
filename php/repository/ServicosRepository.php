@@ -35,6 +35,32 @@ class ServicosRepository
             unset($stmt);
         }
     }
+
+    function fnUpdateServico($servico): bool
+    {
+        try {
+
+            $query = "UPDATE servico set classe = :pclasse, titulo = :ptitulo, descricao = :pdescricao, categoria_id = :pcategoriaId";
+            $query .= "where id = :pid";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":pclasse", $blog->getClasse());
+            $stmt->bindValue(":ptitulo", $blog->getTitulo());
+            $stmt->bindValue(":pdescricao", $blog->getDescricao());
+            $stmt->bindValue(":pcategoriaId", $blog->getCategoriaId());
+
+            if ($stmt->execute())
+                return true;
+
+            return false;
+        } catch (PDOException $error) {
+            echo "Erro ao inserir o blog no banco. Erro: {$error->getMessage()}";
+            return false;
+        } finally {
+            unset($this->conn);
+            unset($stmt);
+        }
+    }
     
     public function fnListServicos($limit = 9999) {
         try {

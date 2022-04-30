@@ -12,11 +12,15 @@
             return $this->repository->fnAddCategoria($categoria);
         }
         
+        public function atualizar(Categoria $categoria): bool {
+            return $this->repository->fnAddCategoria($categoria);
+        }
+        
         public function listarCategoria($limit) {
             return $this->repository->fnListCategorias($limit);
         }
         
-        public function LocalizarPorId($ids) {
+        public function LocalizarPorIds($ids) {
             return $this->repository->fnListCategoriasIn($ids);
         }
 

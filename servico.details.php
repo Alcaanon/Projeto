@@ -55,7 +55,11 @@
               </div>
             </div>
             <div class="card-body">
-              <form id="servicoform" action="" method="post">
+              <form action="servico.edit" method="post">
+              <div class="form-group">
+                <label for="idIdentificador">Identificador</label>
+                <input type="text" id="idIdentificador" name="inputIdentificador" class="form-control" value="<?= $servico->getId() ?>" readonly/>
+              </div>
               <div class="form-group">
                   <label for="idNome">Classe do serviço</label>
                   <input type="text" id="idNome" name="inputClasse" class="form-control" value="<?= $servico->getClasse() ?>">
@@ -68,17 +72,27 @@
                   <label for="inputDescription">Descrição do serviço</label>
                   <textarea id="inputDescription" name="inputDescricao" class="form-control" rows="4"><?= $servico->getDescricao() ?></textarea>
                 </div>
+                <div class="card-body">
+                  <input type="hidden" id="idProduto2" name="inputId" class="form-control" value="<?= $servico->getId() ?>">  
+                  <div class="form-group">
+                      <label for="statusId">Categoria</label>
+                      <select id="statusId" name="inputCategoria" class="form-control custom-select">
+                          <?php foreach ($categorias as $categoria): ?>
+                            <option <?= ($servico->getCategoriaId() == $categoria->getId()) ? 'selected' : '' ?> value="<?= $categoria->getId() ?>"><?= $categoria->getNome() ?></option>
+                          <?php endforeach; ?>
+                      </select>
+                    </div> 
+                    <hr>
+                <div class="col-12">
+                    &nbsp;&nbsp;&nbsp;<a href="servicos" class="btn btn-secondary mb-3" onclick="return confirm('Deseja descartar as alterações?')">Cancel</a>&nbsp;
+                    <button type="submit" class="btn btn-success mb-3">Salvar alterações</button>
+                </div>                  
+                </div>
               </form>
             </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-        &nbsp;&nbsp;&nbsp;<a href="servicos" class="btn btn-secondary mb-3" onclick="return confirm('Deseja descartar as alterações?')">Cancel</a>&nbsp;
-          <button type="submit" class="btn btn-success mb-3">Salvar alterações</button>
         </div>
       </div>
     </section>

@@ -11,6 +11,10 @@
         public function cadastrar(Servico $servico): bool {
             return $this->repository->fnAddServico($servico);
         }
+
+        public function atualizar(Servico $servico): bool {
+            return $this->repository->fnAddServico($servico);
+        }
         
         public function listar($limit) {
             return $this->repository->fnListServicos($limit);

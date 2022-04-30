@@ -1,11 +1,11 @@
 <?php 
   require_once('config/config.php'); 
+
   $BlogService = new BlogService(); 
   $blog = $BlogService->localizar($_GET['id']);
   
   $categoriaService = new CategoriaService(); 
   $categorias = $categoriaService->LocalizarPorIds(array($blog->getCategoriaId()));
-  
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +46,7 @@
         <div class="col-md-6">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Alteração de Serviço</h3>
+              <h3 class="card-title">Alteração de Blogs</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -55,7 +55,11 @@
               </div>
             </div>
             <div class="card-body">
-              <form id="servicoform" action="" method="post">
+              <form action="blog.edit" method="post">
+              <div class="form-group">
+                <label for="idIdentificador">Identificador</label>
+                <input type="text" id="idIdentificador" name="inputIdentificador" class="form-control" value="<?= $blog->getId() ?>" readonly/>
+              </div>
               <div class="form-group">
                   <label for="idNome">Classe do blog</label>
                   <input type="text" id="idNome" name="inputClasse" class="form-control" value="<?= $blog->getClasse() ?>">
@@ -70,11 +74,29 @@
                 </div>
                 <div class="form-group">
                   <label for="idNome">Autor do blog</label>
-                  <input type="text" id="idNome" name="inputTitulo" class="form-control" value="<?= $blog->getNome() ?>">
+                  <input type="text" id="idNome" name="inputNome" class="form-control" value="<?= $blog->getNome() ?>">
                 </div>
                 <div class="form-group">
                   <label for="idNome">Data do blog</label>
-                  <input type="text" id="idNome" name="inputTitulo" class="form-control" value="<?= $blog->getData() ?>">
+                  <input type="text" id="idNome" name="inputData" class="form-control" value="<?= $blog->getData() ?>">
+                </div>                
+                <div class="card-body">
+                  <input type="hidden" id="idProduto2" name="inputId" class="form-control" value="<?= $blog->getId() ?>">  
+                  <div class="form-group">
+                      <label for="statusId">Categoria</label>
+                      <select id="statusId" name="inputCategoria" class="form-control custom-select">
+                          <?php foreach ($categorias as $categoria): ?>
+                            <option <?= ($blog->getCategoriaId() == $categoria->getId()) ? 'selected' : '' ?> value="<?= $categoria->getId() ?>"><?= $categoria->getNome() ?></option>
+                          <?php endforeach; ?>
+                      </select>
+                    </div>                    
+                </div>
+                
+                <hr>
+                <div class="col-12">
+                    &nbsp;&nbsp;&nbsp;<a href="blogs" class="btn btn-secondary mb-3" onclick="return confirm('Deseja descartar as alterações?')">Cancel</a>&nbsp;
+                    <button type="submit" class="btn btn-success mb-3">Salvar alterações</button>
+                </div>
                 </div>
               </form>
             </div>
@@ -82,13 +104,6 @@
           </div>
           <!-- /.card -->
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-        &nbsp;&nbsp;&nbsp;<a href="blogs" class="btn btn-secondary mb-3" onclick="return confirm('Deseja descartar as alterações?')">Cancel</a>&nbsp;
-          <button type="submit" class="btn btn-success mb-3">Salvar alterações</button>
-        </div>
-      </div>
     </section>
         </main>
         <!-- Footer-->
