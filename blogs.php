@@ -66,8 +66,8 @@
                                 <div class="text-right">
                                 <a href="blog.details?id=<?= $blog->getId() ?>" class="btn btn-sm btn-primary">
                                     <i class="fas fa-box"></i> Editar</a>&nbsp;
-                                <a href="#blog.deletar?id=<?= $blog->getId() ?>" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-box"></i> Deletar (Em Manutenção)</a>
+                                <a onclick="return confirm('Deseja realmente remover este item?')" href="blog.delete?id=<?= $blog->getId() ?>" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-box"></i> Deletar</a>
                                 </a>
                                 </div>
                             </div>

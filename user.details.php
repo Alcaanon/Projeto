@@ -37,47 +37,46 @@
                     </div>
                 </div>
             </header>
-            <section class="content">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">Alteração de Usuários</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
+            <section class="page-section" id="usuarios">
+              <div class="container">
+                  <div class="text-center">
+                      <h2 class="section-heading text-uppercase">Sistema de Edição de Usuários</h2>
+                      <h3 class="section-subheading text-muted">Utilize a tabela abaixo para incluir as informações sobre os usuários.</h3>
+                  </div>
+                  <form id="usuariosForm" data-sb-form-api-token="API_TOKEN" method="POST" action="user.edit">
+                      <div class="row align-items-center mb-5 offset-4">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="idIdentificador">Identificador</label>
+                                  <input type="text" id="idIdentificador" name="inputIdentificador" class="form-control" value="<?= $usuario->getId() ?>" readonly/>
+                              </div>
+                              <div class="form-group">
+                                  <!-- Nome input-->
+                                  <input class="form-control" id="nome" name="inputNome" value="<?= $usuario->getNome() ?>" type="text" placeholder="Informe o nome *" data-sb-validations="required" />
+                                  <div class="invalid-feedback" data-sb-feedback="nome:required">Informe o nome.</div>
+                              </div>
+                              <div class="form-group">
+                                  <!-- Email input-->
+                                  <input class="form-control"  id="email" name="inputEmail" value="<?= $usuario->getEmail() ?>" type="text" placeholder="Informe o email *" data-sb-validations="required" />
+                                  <div class="invalid-feedback" data-sb-feedback="email:required">Informe o email.</div>
+                              </div>
+                              <div class="form-group mb-md-0">
+                                  <!-- Senha input-->
+                                  <input class="form-control" id="senha" name="inputSenha" value="<?= $usuario->getSenha() ?>" type="password" placeholder="Informe a senha *" data-sb-validations="required" />
+                                  <div class="invalid-feedback" data-sb-feedback="senha:required">Informe a senha.</div>
+                              </div>
+                              <div class="form-group mb-md-0">
+                                  <!-- Senha Repetida input-->
+                                  <input class="form-control"  id="senha2" name="inputSenhaRepetida" value="<?= $usuario->getSenha() ?>" type="password" placeholder="Repita a senha *" data-sb-validations="required" />
+                                  <div class="invalid-feedback" data-sb-feedback="senha2:required">Repita a senha.</div>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- Submit Button-->
+                      <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">Alterar</button></div>
+                  </form>
               </div>
-            </div>
-            <div class="card-body">
-              <form id="userform" action="" method="post">
-              <div class="form-group">
-                  <label for="idNome">Nome do usuário</label>
-                  <input type="text" id="idNome" name="inputClasse" class="form-control" value="<?= $servico->getClasse() ?>">
-                </div>
-                <div class="form-group">
-                  <label for="idNome">Titulo do serviço</label>
-                  <input type="text" id="idNome" name="inputTitulo" class="form-control" value="<?= $servico->getTitulo() ?>">
-                </div>
-                <div class="form-group">
-                  <label for="inputDescription">Descrição do serviço</label>
-                  <textarea id="inputDescription" name="inputDescricao" class="form-control" rows="4"><?= $servico->getDescricao() ?></textarea>
-                </div>
-              </form>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-        &nbsp;&nbsp;&nbsp;<a href="servicos" class="btn btn-secondary mb-3" onclick="return confirm('Deseja descartar as alterações?')">Cancel</a>&nbsp;
-          <button type="submit" class="btn btn-success mb-3">Salvar alterações</button>
-        </div>
-      </div>
-    </section>
+          </section>
         </main>
         <!-- Footer-->
         <footer class="bg-dark py-4 mt-auto">

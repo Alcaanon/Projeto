@@ -60,11 +60,13 @@
                             </div>
                             </div>
                             <div class="card-footer">
-                            <div class="text-right">
-                                <a href="load.php/load-categoria/<?= $categoria->getId() ?>" class="btn btn-sm btn-primary">
-                                <i class="fas fa-boxes-stacked"></i> Editar
+                                <div class="text-right">
+                                <a href="categoria.details?id=<?= $categoria->getId() ?>" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-box"></i> Editar</a>&nbsp;
+                                <a onclick="return confirm('Deseja realmente remover este item?')" href="categoria.delete?id=<?= $categoria->getId() ?>" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-box"></i> Deletar</a>
                                 </a>
-                            </div>
+                                </div>
                             </div>
                         </div>
                         </div>

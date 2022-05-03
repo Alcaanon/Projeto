@@ -1,6 +1,5 @@
 <?php 
     require_once('config/config.php');
-    session_start();
 
     $service = new BlogService();
 
@@ -23,11 +22,11 @@
 
     if($service->atualizar($blog))
     {
-        header('location: ./home');
+        header('location: ./blogs?success=true');
         exit;
     } else {
         $_SESSION['error'] = 'Ocorreu uma falha ao cadastrar';
-        header('location: ./blogs');
+        header('location: ./blogs?error=true');
         exit;
     }
 

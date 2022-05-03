@@ -31,10 +31,33 @@ class SiteRepository
         }
     }
 
+    function fnUpdateCategoria($categoria): bool
+    {
+        try {
+
+            $query = "UPDATE categoria SET nome = :pnome WHERE id = :pid";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":pid", $categoria->getId());
+            $stmt->bindValue(":pnome", $categoria->getNome());
+
+            if ($stmt->execute())
+                return true;
+
+            return false;
+        } catch (PDOException $error) {
+            echo "Erro ao editar a categoria no banco. Erro: {$error->getMessage()}";
+            return false;
+        } finally {
+            unset($this->conn);
+            unset($stmt);
+        }
+    }
+
     public function fnListCategorias($limit = 9999) {
         try {
 
-            $query = "select id, nome, criado_em criadoem from categoria limit :plimit";
+            $query = "SELECT id, nome, criado_em criadoem FROM categoria limit :plimit";
 
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':plimit', $limit);
@@ -54,6 +77,28 @@ class SiteRepository
         }
     }
 
+    public function fnLocalizarCategoria($id) {
+        try {
+
+            $query = "SELECT id, nome, criado_em criadoem FROM categoria  WHERE id = :pid";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':pid', $id);
+
+            if ($stmt->execute()) {
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Categoria');
+                return  $stmt->fetch();
+            }
+
+            return false;
+        } catch (PDOException $error) {
+            echo "Erro ao listar a categoria no banco. Erro: {$error->getMessage()}";
+            return false;
+        } finally {
+            unset($this->conn);
+            unset($stmt);
+        }
+    }
 
     public function fnListCategoriasIn($ids) {
         try {
@@ -96,6 +141,29 @@ class SiteRepository
             return false;
         } catch (PDOException $error) {
             echo "Erro ao listar as categorias com quantidade no banco. Erro: {$error->getMessage()}";
+            return false;
+        } finally {
+            unset($this->conn);
+            unset($stmt);
+        }
+    }
+
+    public function fnDeletarCategoria($id) {
+        try {
+
+            $query = "DELETE FROM categoria WHERE id = :pid";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':pid', $id);
+
+            if ($stmt->execute()) {
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Categoria');
+                return  $stmt->fetch();
+            }
+
+            return false;
+        } catch (PDOException $error) {
+            echo "Erro ao deletar a categoria no banco. Erro: {$error->getMessage()}";
             return false;
         } finally {
             unset($this->conn);

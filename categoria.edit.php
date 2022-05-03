@@ -1,6 +1,5 @@
 <?php 
     require_once('config/config.php');
-    session_start();
 
     $service = new CategoriaService();
 
@@ -13,10 +12,10 @@
 
     if($service->atualizar($categoria))
     {
-        header('location: ./load.php/load-categorias');
+        header('location: ./categorias?success=true');
         exit;
     } else {
-        $_SESSION['error'] = 'Ocorreu uma falha ao cadastrar';
-        header('location: ./categoria');
+        $_SESSION['error'] = 'Ocorreu uma falha ao atualizar';
+        header('location: ./categorias?error=true');
         exit;
     }

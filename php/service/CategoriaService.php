@@ -13,7 +13,11 @@
         }
         
         public function atualizar(Categoria $categoria): bool {
-            return $this->repository->fnAddCategoria($categoria);
+            return $this->repository->fnUpdateCategoria($categoria);
+        }
+        
+        public function localizar($id) {
+            return $this->repository->fnLocalizarCategoria($id);
         }
         
         public function listarCategoria($limit) {
@@ -26,5 +30,9 @@
 
         public function listarComQuantidade($limit) {
             return $this->repository->fnListCategoriasQuantidade($limit);
+        }
+        
+        public function deletar($id) {
+            return $this->repository->fnDeletarCategoria($id);
         }
     } 

@@ -23,4 +23,8 @@
         public function localizar($id) {
             return $this->repository->fnLocalizarBlogs($id);
         }
+
+        public function deletar($id) {
+            return $this->repository->fnDeletarBlog($id);
+        }
     } 

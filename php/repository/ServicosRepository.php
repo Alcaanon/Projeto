@@ -40,10 +40,10 @@ class ServicosRepository
     {
         try {
 
-            $query = "UPDATE servico set classe = :pclasse, titulo = :ptitulo, descricao = :pdescricao, categoria_id = :pcategoriaId";
-            $query .= "where id = :pid";
+            $query = "UPDATE servico set classe = :pclasse, titulo = :ptitulo, descricao = :pdescricao, categoria_id = :pcategoriaId WHERE id = :pid";
 
             $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":pid", $servico->getId());
             $stmt->bindValue(":pclasse", $servico->getClasse());
             $stmt->bindValue(":ptitulo", $servico->getTitulo());
             $stmt->bindValue(":pdescricao", $servico->getDescricao());
@@ -108,4 +108,26 @@ class ServicosRepository
         }
     }
     
+    public function fnDeletarServico($id) {
+        try {
+
+            $query = "DELETE FROM servico WHERE id = :pid";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':pid', $id);
+
+            if ($stmt->execute()) {
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Servico');
+                return  $stmt->fetch();
+            }
+
+            return false;
+        } catch (PDOException $error) {
+            echo "Erro ao deletar o serviço no banco. Erro: {$error->getMessage()}";
+            return false;
+        } finally {
+            unset($this->conn);
+            unset($stmt);
+        }
+    }
 }

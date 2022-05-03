@@ -1,5 +1,10 @@
 <?php 
   require_once('config/config.php'); 
+
+  
+  $categoriaService = new CategoriaService(); 
+  $categoria = $categoriaService->localizar($_GET['id']);
+
 ?>
 
 <!DOCTYPE html>
@@ -55,8 +60,9 @@
                                     <label for="idNome">Nome</label>
                                     <input type="text" id="idNome" name="inputNome" class="form-control" value="<?= $categoria->getNome() ?>" />
                                 </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-dark">Salvar</button>
+                                <div class="col-12">
+                                    &nbsp;&nbsp;&nbsp;<a href="categorias" class="btn btn-secondary mb-3" onclick="return confirm('Deseja descartar as alterações?')">Cancel</a>&nbsp;
+                                    <button type="submit" class="btn btn-success mb-3">Salvar alterações</button>
                                 </div>
                             </form>
                         </div>

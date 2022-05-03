@@ -64,8 +64,8 @@
                                 <div class="text-right">
                                 <a href="servico.details?id=<?= $servico->getId() ?>" class="btn btn-sm btn-primary">
                                     <i class="fas fa-box"></i> Editar</a>&nbsp;
-                                <a href="#servico.deletar?id=<?= $servico->getId() ?>" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-box"></i> Deletar (Em Manutenção)</a>
+                                <a href="servico.delete?id=<?= $servico->getId() ?>" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-box"></i> Deletar</a>
                                 </a>
                                 </div>
                             </div>

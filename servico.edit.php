@@ -18,11 +18,11 @@
 
     if($service->atualizar($servico))
     {
-        header('location: ./home');
+        header('location: ./servicos?success=true');
         exit;
     } else {
         $_SESSION['error'] = 'Ocorreu uma falha ao cadastrar';
-        header('location: ./servicos');
+        header('location: ./servicos?error=true');
         exit;
     }
 

@@ -42,10 +42,10 @@ class BlogRepository
     {
         try {
 
-            $query = "UPDATE blog set classe = :pclasse, titulo = :ptitulo, descricao = :pdescricao, nome = :pnome, data = :pdata, categoria_id = :pcategoriaId";
-            $query .= "where id = :pid";
+            $query = "UPDATE blog set classe = :pclasse, titulo = :ptitulo, descricao = :pdescricao, nome = :pnome, data = :pdata, categoria_id = :pcategoriaId WHERE id = :pid";
 
             $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":pid", $blog->getId());
             $stmt->bindValue(":pclasse", $blog->getClasse());
             $stmt->bindValue(":ptitulo", $blog->getTitulo());
             $stmt->bindValue(":pdescricao", $blog->getDescricao());
@@ -105,6 +105,29 @@ class BlogRepository
             return false;
         } catch (PDOException $error) {
             echo "Erro ao listar os blogs no banco. Erro: {$error->getMessage()}";
+            return false;
+        } finally {
+            unset($this->conn);
+            unset($stmt);
+        }
+    }
+
+    public function fnDeletarBlog($id) {
+        try {
+
+            $query = "DELETE FROM blog WHERE id = :pid";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':pid', $id);
+
+            if ($stmt->execute()) {
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Blog');
+                return  $stmt->fetch();
+            }
+
+            return false;
+        } catch (PDOException $error) {
+            echo "Erro ao deletar o blog no banco. Erro: {$error->getMessage()}";
             return false;
         } finally {
             unset($this->conn);

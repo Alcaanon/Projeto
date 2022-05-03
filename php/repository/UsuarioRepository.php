@@ -33,6 +33,31 @@ class UsuarioRepository
         }
     }
 
+    function fnUpdateUsuario($usuario): bool
+    {
+        try {
+
+            $query = "UPDATE usuario set nome = :pnome, email = :pemail, senha = :psenha WHERE id = :pid";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":pid", $usuario->getId());
+            $stmt->bindValue(":pnome", $usuario->getNome());
+            $stmt->bindValue(":pemail", $usuario->getEmail());
+            $stmt->bindValue(":psenha", md5($usuario->getSenha()));
+
+            if ($stmt->execute())
+                return true;
+
+            return false;
+        } catch (PDOException $error) {
+            echo "Erro ao inserir o usuário no banco. Erro: {$error->getMessage()}";
+            return false;
+        } finally {
+            unset($this->conn);
+            unset($stmt);
+        }
+    }
+    
     function fnLoginUsuario(Usuario $usuario)
     {
         try {
@@ -74,6 +99,52 @@ class UsuarioRepository
             return false;
         } catch (PDOException $error) {
             echo "Erro ao listar os usuários do banco. Erro: {$error->getMessage()}";
+            return false;
+        } finally {
+            unset($this->conn);
+            unset($stmt);
+        }
+    }
+
+    public function fnLocalizarUsuario($id) {
+        try {
+
+            $query = "SELECT id, nome, email, senha  FROM usuario WHERE id = :pid";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':pid', $id);
+
+            if ($stmt->execute()) {
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Usuario');
+                return  $stmt->fetch();
+            }
+
+            return false;
+        } catch (PDOException $error) {
+            echo "Erro ao listar os usuarios no banco. Erro: {$error->getMessage()}";
+            return false;
+        } finally {
+            unset($this->conn);
+            unset($stmt);
+        }
+    }
+    
+    public function fnDeletarUsuario($id) {
+        try {
+
+            $query = "DELETE FROM usuario WHERE id = :pid";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':pid', $id);
+
+            if ($stmt->execute()) {
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Usuario');
+                return  $stmt->fetch();
+            }
+
+            return false;
+        } catch (PDOException $error) {
+            echo "Erro ao deletar o usuario no banco. Erro: {$error->getMessage()}";
             return false;
         } finally {
             unset($this->conn);
